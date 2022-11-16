@@ -1,0 +1,36 @@
+{
+  "name": "modify-bookmarks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bookmarks-dates-dev.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.0",
+    "cjs": "0.0.11",
+    "file-saver": "^2.0.5",
+    "fileapi": "^2.2.0",
+    "fs": "0.0.1-security",
+    "jquery": "^3.6.0",
+    "jsdom": "^19.0.0",
+    "node-gyp": "^9.1.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^3.1.2",
+    "html-webpack-plugin": "^5.5.0",
+    "parcel": "^2.7.0",
+    "parcel-bundler": "^1.12.5",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

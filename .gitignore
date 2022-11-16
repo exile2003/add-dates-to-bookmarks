@@ -1,0 +1,10 @@
+.cache/
+.cache_backup/*
+node_modules/*
+!node_modules/jquery/dist/jquery.js
+!node_modules/bootstrap/dist/css/bootstrap.css
+utils/
+index-2.html
+Webpack.config.txt
+
+
