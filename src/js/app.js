@@ -1,7 +1,10 @@
 import FileSaver from 'file-saver';
 
 // When a bookmark file is chosen, the function 'getFile' is started.
-document.getElementById("chosen-file").onchange = getFile;
+function chooseFile() {
+    output.contentDocument.getElementById('chosen-file').onchange = getFile;
+}
+
 
 // Function 'addDate' adds a div element with the bookmark creation date after the inputElement.
 // Attribute 'ADD_DATE' has a Unix timestamp in seconds.
@@ -47,9 +50,8 @@ function convertUnixTime(date) {
 }
 
 // Function 'getFile' parses the input bookmark file, processes it with the function 'elementIteration' and writes with
-// method 'saveAs' of 'FileSaver' package
+// the 'saveAs' method from the 'FileSaver' package
 function getFile(e) {
-    console.log("getFile");
     let domTree;
     let inputFile = e.target.files[0];
     let reader = new FileReader();
@@ -57,10 +59,15 @@ function getFile(e) {
     let outputFile;
     reader.onload = function(e) {
         fileContent = e.target.result;
+
+        //Parsing the content of the input file and assign result to domTree variable
         domTree = new DOMParser().parseFromString(fileContent, "text/html")
+
+        //Pass the content of tag body to function elementIteration for adding dates
         elementIteration(domTree.getElementsByTagName('body')[0]);
         outputFile = (domTree.getElementsByTagName('body')[0]).outerHTML
 
+        //Form the file and write to disk
         let fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(fileForSave)
 
