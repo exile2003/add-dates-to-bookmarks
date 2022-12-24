@@ -8,6 +8,7 @@ import './css/bootstrap.min.css'
 import '../node_modules/jquery/dist/jquery.min.js';
 import './js/bootstrap-filestyle.min.js';
 
-import './js/flags_size.js'
+//import './js/flags_size.js'
 import './js/routes.js'
+import './js/flags_size.js'
 import './js/app.js'
