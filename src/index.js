@@ -45,6 +45,8 @@ function setSize() {
     let elementBody = document.querySelector('#output').contentWindow.document.body;
     if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
 
+    console.log("setSize", window.innerWidth/window.outerWidth)
+
      hashChange(routs);
 }
 
