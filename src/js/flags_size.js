@@ -1,3 +1,4 @@
+import hashChange from './routes.js'
 window.onload = function() {
 
     let currentWidth = document.querySelector('#output').contentWindow.document.body.scrollWidth;

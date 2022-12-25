@@ -17,7 +17,7 @@ window.addEventListener("hashchange", function() {
 // window. And passes the html property of this element to the function launch, which runs in the browser the file
 // from the "routes" folder with the name equal to the html property.
 
-function hashChange(arrayOfRoutes){
+export default function hashChange(arrayOfRoutes){
     let currentRoutes = arrayOfRoutes;
     if(window.location.hash.length > 0 ){
 
