@@ -1,4 +1,3 @@
-
 import './style.css';
 
 /* These three lines below are necessary for working library Bootstrap */
@@ -177,6 +176,3 @@ function getFile(e) {
     }
     reader.readAsText(inputFile);
 }
-
-
-
