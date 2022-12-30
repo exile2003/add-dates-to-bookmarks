@@ -1,4 +1,3 @@
-
 import './style.css';
 
 /* These three lines below are necessary for working library Bootstrap */
@@ -44,6 +43,8 @@ function setSize() {
 
     let elementBody = document.querySelector('#output').contentWindow.document.body;
     if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
+
+    console.log("setSize", window.innerWidth/window.outerWidth)
 
      hashChange(routs);
 }
@@ -151,7 +152,7 @@ function convertUnixTime(date) {
 }
 
 // Function 'getFile' parses the input bookmark file, processes it with the function 'elementIteration' and writes with
-// method 'saveAs' of 'FileSaver' package
+// the 'saveAs' method from the 'FileSaver' package
 function getFile(e) {
     let domTree;
     let inputFile = e.target.files[0];
@@ -175,6 +176,3 @@ function getFile(e) {
     }
     reader.readAsText(inputFile);
 }
-
-
-

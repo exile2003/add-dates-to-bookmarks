@@ -4,50 +4,47 @@ function Route(name, html, defaultSite) {
     this.default = defaultSite;
 }
 
-let routers = [
+let routs = [
     new Route("ru", "ru.html", true),
     new Route("en", "en.html", false)
 ]
 
 window.addEventListener("hashchange", function() {
-    hashChange(routers);
-    //window.location.reload();
-   //setSize();
+    hashChange(routs);
 })
 
- hashChange(routers)
+//The function hashChange looks for an element in the passed array with a name equal to the URL hash of the browser
+// window. And passes the html property of this element to the function launch, which runs in the browser the file
+// from the "routes" folder with the name equal to the html property.
 
-function hashChange(someRouter){
-    console.log("hashChange");
-    // setSize();
-    let routers2 = someRouter;
-    //console.log(window.location.hash == Undefined)
+export default function hashChange(arrayOfRoutes){
+    let currentRoutes = arrayOfRoutes;
     if(window.location.hash.length > 0 ){
 
-        for (let i=0; i < routers2.length; ++i) {
-            if (routers2[i].name === window.location.hash.substr(1)) {
-                launch(routers2[i].html)
+        for (let i=0; i <  currentRoutes.length; ++i) {
+            if ( currentRoutes[i].name === window.location.hash.substr(1)) {
+                launch( currentRoutes[i].html, chooseFile)
             }
         }
 
     } else { console.log("else")
-        for (let i=0; i < routers2.length; i++) {
-            if (routers2[i].default === true) {
-                launch(routers2[i].html)
+        for (let i=0; i <  currentRoutes.length; i++) {
+            if ( currentRoutes[i].default === true) {
+                launch( currentRoutes[i].html, chooseFile)
             }
         }
     }
 }
 
-function launch(someHtml) {
-    let url = 'routes/' + someHtml;
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+// The function Launch runs the html file in the browser with the address passed to this function as the first
+// parameter. As a second parameter, the function chooseFile is passed, which runs when the user chooses a bookmark
+// file.
 
-    xhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("output").innerHTML = xhr.responseText;
-        };
-    };
-    xhr.send();
+function launch(someHtml, callback) {
+
+    let url = 'routes/' + someHtml;
+    let output = document.getElementById("output");
+    output.setAttribute('src', url);
+
+    output.onload = callback;
 }
