@@ -39,12 +39,14 @@ window.addEventListener("resize", setSize);
 // And also sets height of the element with id "output" dependent on the size of viewport, that contains the text.
 
 function setSize() {
+    // String below keeps the height of the element with the class name "container" equals 10 mm.
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
     let elementBody = document.querySelector('#output').contentWindow.document.body;
     if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
 
-    console.log("setSize", window.innerWidth/window.outerWidth)
+    // String below used for testing application
+    //console.log("setSize", window.innerWidth/window.outerWidth)
 
      hashChange(routs);
 }
@@ -65,7 +67,7 @@ window.addEventListener("hashchange", function() {
 })
 
 //The function hashChange looks for an element in the passed array with a name equal to the URL hash of the browser
-// window. And passes the html property of this element to the function launch, which runs in the browser the file
+// window. And passes the html property of this element to the function "launch", which runs in the browser the file
 // from the "routes" folder with the name equal to the html property.
 
 function hashChange(arrayOfRoutes){
