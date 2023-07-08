@@ -98,7 +98,8 @@ function launch(someHtml, callback) {
 
     let url = 'routes/' + someHtml;
     let output = document.getElementById("output");
-    output.setAttribute('src', url);
+    fetch(url).then(res => output.innerHTML = res);
+
 
     output.onload = callback;
 }
