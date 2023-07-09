@@ -1,5 +1,6 @@
 import './style.css';
 import FileSaver from 'file-saver';
+const fs = require('fs');
 
 /* These three lines below are necessary for working library Bootstrap */
 /* FileStyle-2 (https://markusslima.github.io/bootstrap-filestyle/). This library is needed for customization of */
@@ -21,14 +22,14 @@ import './js/app.js'
 
 window.onload = function() {
 
-    let currentWidth = document.querySelector('#output').contentWindow.document.body.scrollWidth;
+    let currentWidth = document.querySelector('#output');
     let currentHeight = "";
 
     if ( +currentWidth < 900 ) currentHeight = "396px";
       else if ( +currentWidth < 1200 ) currentHeight = "333px";
     else currentHeight = "300px";
 
-    document.querySelector('#output').style.height = currentHeight;
+    //document.querySelector('#output').style.height = currentHeight;
 
     setSize();
 }
@@ -43,7 +44,7 @@ function setSize() {
     // String below keeps the height of the element with the class name "container" equals 10 mm.
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
-    let elementBody = document.querySelector('#output').contentWindow.document.body;
+    let elementBody = document.querySelector('#output');
     if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
 
     // String below used for testing application
@@ -67,25 +68,23 @@ window.addEventListener("hashchange", function() {
     hashChange(routs);
 })
 
-//The function hashChange looks for an element in the passed array with a name equal to the URL hash of the browser
+//The function hashChange looks for an element in the passed array with a name equals to the URL hash of the browser
 // window. And passes the html property of this element to the function "launch", which runs in the browser the file
 // from the "routes" folder with the name equal to the html property.
 
-function hashChange(arrayOfRoutes){
+function hashChange(arrayOfRoutes) {
     let currentRoutes = arrayOfRoutes;
-    if(window.location.hash.length > 0 ){
+    if (window.location.hash.length > 0) {
 
-        for (let i=0; i <  currentRoutes.length; ++i) {
-            if ( currentRoutes[i].name === window.location.hash.substr(1)) {
-                launch( currentRoutes[i].html, chooseFile)
+        for (let i = 0; i < currentRoutes.length; ++i) {
+            if (currentRoutes[i].name === window.location.hash.substr(1)) {
+                launch(currentRoutes[i].html, chooseFile)
             }
         }
 
-    } else { console.log("else")
-        for (let i=0; i <  currentRoutes.length; i++) {
-            if ( currentRoutes[i].default === true) {
-                launch( currentRoutes[i].html, chooseFile)
-            }
+    } else for (let i = 0; i < currentRoutes.length; i++) {
+        if (currentRoutes[i].default === true) {
+            launch(currentRoutes[i].html, chooseFile)
         }
     }
 }
@@ -96,18 +95,26 @@ function hashChange(arrayOfRoutes){
 
 function launch(someHtml, callback) {
 
-    let url = 'routes/' + someHtml;
+    let basePath = __dirname + 'routes/' + someHtml;
     let output = document.getElementById("output");
-    fetch(url).then(res => output.innerHTML = res);
 
+    fs.readFile(basePath, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            output.innerHTML = data;
+            callback()
+        }
+    })
 
-    output.onload = callback;
+    //output.onload = callback;
+    //callback()
 }
 
 
 // When a bookmark file is chosen, the function 'getFile' is started.
 function chooseFile() {
-    output.contentDocument.getElementById('chosen-file').onchange = getFile;
+    output.getElementById('chosen-file').onchange = getFile;
 }
 
 
