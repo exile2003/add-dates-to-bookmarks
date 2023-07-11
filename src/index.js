@@ -20,6 +20,7 @@ import './js/app.js'
 
 window.onload = function() {
 
+//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
     let currentWidth = document.querySelector('#output').contentWindow.document.body.scrollWidth;
     let currentHeight = "";
 
@@ -159,22 +160,22 @@ function getFile(e) {
     let domTree;
     let inputFile = e.target.files[0];
     let reader = new FileReader();
-    let fileContent;
-    let outputFile;
+    //let fileContent;
+    //let outputFile;
+    reader.readAsText(inputFile);
     reader.onload = function(e) {
-        fileContent = e.target.result;
+        const fileContent = e.target.result;
 
         //Parsing the content of the input file and assign result to domTree variable
         domTree = new DOMParser().parseFromString(fileContent, "text/html")
 
         //Pass the content of tag body to function elementIteration for adding dates
         elementIteration(domTree.getElementsByTagName('body')[0]);
-        outputFile = (domTree.getElementsByTagName('body')[0]).outerHTML
+        const outputFile = (domTree.getElementsByTagName('body')[0]).outerHTML
 
         //Form the file and write to disk
         let fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(fileForSave)
 
     }
-    reader.readAsText(inputFile);
 }
