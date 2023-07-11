@@ -1,8 +1,9 @@
 import './style.css';
+import FileSaver from 'file-saver';
 
 /* These three lines below are necessary for working library Bootstrap */
-/* FileStyle-2 (https://markusslima.github.io/bootstrap-filestyle/). This library is needed for customization of */
-/* html input element. */
+/* FileStyle-2 (https://markusslima.github.io/bootstrap-filestyle/).*/
+/* This library is needed for customization of html input element. */
 
 //import './css/bootstrap.min.css'
 //import '../node_modules/jquery/dist/jquery.min.js';
@@ -46,7 +47,7 @@ function setSize() {
     let elementBody = document.querySelector('#output').contentWindow.document.body;
     if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
 
-    // String below used for testing application
+    // Commented string below used for testing application
     //console.log("setSize", window.innerWidth/window.outerWidth)
 
      hashChange(routs);
@@ -103,7 +104,6 @@ function launch(someHtml, callback) {
     output.onload = callback;
 }
 
-import FileSaver from 'file-saver';
 
 // When a bookmark file is chosen, the function 'getFile' is started.
 function chooseFile() {
@@ -176,6 +176,5 @@ function getFile(e) {
         //Form the file and write to disk
         let fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(fileForSave)
-
     }
 }
