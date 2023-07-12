@@ -171,14 +171,14 @@ eval("/* provided dependency */ var __webpack_provided_window_dot_jQuery = __web
 
 /***/ }),
 
-/***/ "./src/routes/filestyle.js":
-/*!*********************************!*\
-  !*** ./src/routes/filestyle.js ***!
-  \*********************************/
+/***/ "./src/js/filestyle.js":
+/*!*****************************!*\
+  !*** ./src/js/filestyle.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/bootstrap.min.css */ \"./src/css/bootstrap.min.css\");\n/* harmony import */ var _node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/jquery/dist/jquery.min.js */ \"./node_modules/jquery/dist/jquery.min.js\");\n/* harmony import */ var _node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _js_bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../js/bootstrap-filestyle.min.js */ \"./src/js/bootstrap-filestyle.min.js\");\n/* harmony import */ var _js_bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style.css */ \"./src/style.css\");\n //import '../../style.css';\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://modify-bookmarks/./src/routes/filestyle.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/bootstrap.min.css */ \"./src/css/bootstrap.min.css\");\n/* harmony import */ var _node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/jquery/dist/jquery.min.js */ \"./node_modules/jquery/dist/jquery.min.js\");\n/* harmony import */ var _node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_jquery_dist_jquery_min_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./bootstrap-filestyle.min.js */ \"./src/js/bootstrap-filestyle.min.js\");\n/* harmony import */ var _bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_bootstrap_filestyle_min_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style.css */ \"./src/style.css\");\n //import '../../style.css';\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://modify-bookmarks/./src/js/filestyle.js?");
 
 /***/ })
 
@@ -259,7 +259,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/routes/filestyle.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/js/filestyle.js");
 /******/ 	
 /******/ })()
 ;
