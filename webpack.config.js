@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         index: __dirname + '/src/index.js',
-        routes: __dirname + '/src/routes/filestyle.js'
+        routes: __dirname + '/src/js/filestyle.js'
     },
     output: {
         filename: '[name]_bundle.js',
