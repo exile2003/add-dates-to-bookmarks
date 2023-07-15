@@ -1,6 +1,9 @@
 import './style.css';
 import FileSaver from 'file-saver';
-const fs = require('fs');
+//const fs = require('fs');
+import fs from 'fs';
+
+
 
 /* These three lines below are necessary for working library Bootstrap */
 /* FileStyle-2 (https://markusslima.github.io/bootstrap-filestyle/). This library is needed for customization of */
@@ -96,18 +99,20 @@ function launch(someHtml, callback) {
 
     let basePath = __dirname + 'routes/' + someHtml;
     let output = document.getElementById("output");
+    console.log(basePath)
 
-    fs.readFile(basePath, (err, data) => {
+    fetch(basePath, (err, data) => {
         if (err) {
             console.log(err);
         } else {
+            console.log(data);
             output.innerHTML = data;
             callback()
         }
     })
 
-    //output.onload = callback;
-    //callback()
+    output.onload = callback;
+    callback()
 }
 
 
@@ -168,6 +173,7 @@ function getFile(e) {
     let reader = new FileReader();
     let fileContent;
     let outputFile;
+    reader.readAsText(inputFile);
     reader.onload = function(e) {
         fileContent = e.target.result;
 
@@ -183,5 +189,4 @@ function getFile(e) {
         FileSaver.saveAs(fileForSave)
 
     }
-    reader.readAsText(inputFile);
 }

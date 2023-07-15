@@ -35,17 +35,7 @@ module.exports = {
             filename: path.resolve(__dirname, "dist", "index.html"),
             chunks: ['index']
         }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "src/routes", "en.html"),
-            filename: path.resolve(__dirname, "dist/routes", "en.html"),
-            chunks: ['routes']
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "src/routes", "ru.html"),
-            filename: path.resolve(__dirname, "dist/routes", "ru.html"),
-            chunks: ['routes']
-        }),
-        new webpack.ProvidePlugin({
+          new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
             'window.jQuery': 'jquery'
