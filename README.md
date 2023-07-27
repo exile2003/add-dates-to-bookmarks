@@ -1,6 +1,6 @@
 # modify-bookmarks
 
-#### This application allows you to add bookmark creation dates in a saved bookmark file.
+#### This is standalone application, that allows you to add bookmark creation dates in a saved bookmark file.
 
 To add dates to the bookmark file of the browser, export the bookmark file and save it to disk. For example, for the 
 Сhrome browser, select - ︙ in the upper right corner ⇒ Bookmarks ⇒ Bookmark manager or Ctrl + Shift + O. Then ︙ in the 
@@ -9,8 +9,8 @@ upper right corner
  numbers). Next open dist/index.html file, click "Download File" and select the saved bookmark file. The file 
  "bookmarks-result.html" with dates will appear in the Downloads folder on your computer. It may take to one minute.
  
- [Start app](https://github.com/exile2003/modify-bookmarks/dist)
-
+ [Start app](https://exile2003.github.io/modify-bookmarks/dist)
+ 
 modify-bookmarks/dist/ - This is a bundle. You can run application with index.html.
 
 modify-bookmarks/bookmarks/ - This is a saved bookmark file. You can use it to check how the application works.
