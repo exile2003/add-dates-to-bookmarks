@@ -1,6 +1,6 @@
 # modify-bookmarks
 
-#### This application allows you to add bookmark creation dates in a saved bookmark file.
+#### This is standalone application, that allows you to add bookmark creation dates in a saved bookmark file.
 
 To add dates to the bookmark file of the browser, export the bookmark file and save it to disk. For example, for the 
 Сhrome browser, select - ︙ in the upper right corner ⇒ Bookmarks ⇒ Bookmark manager or Ctrl + Shift + O. Then ︙ in the 
