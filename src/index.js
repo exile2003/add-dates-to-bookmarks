@@ -1,17 +1,6 @@
 import './style.css';
 import FileSaver from 'file-saver';
 
-/* These three lines below are necessary for working library Bootstrap */
-/* FileStyle-2 (https://markusslima.github.io/bootstrap-filestyle/).*/
-/* This library is needed for customization of html input element. */
-
-//import './css/bootstrap.min.css'
-//import '../node_modules/jquery/dist/jquery.min.js';
-//import './js/bootstrap-filestyle.min.js';
-
-
-//import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
 /*
 import './js/flags_size.js'
 import './js/routes.js'
@@ -23,19 +12,23 @@ let iframe = document.querySelector("iframe");
 window.addEventListener("load", setSize);
 window.addEventListener("resize", setSize);
 
-
-//The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
-// And also sets height of the element "iframe" dependent on the size of viewport, that contains the text.
-
-function setSize() {
-    // String below keeps the height of the element with the class name "container" equals 10 mm.
-    document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
-
+function start() {
     let elementBody = iframe.contentWindow.document.body;
-    if (elementBody) document.querySelector('iframe').style.height = elementBody.scrollHeight + "px";
+    if (elementBody) {
+        iframe.style.height = elementBody.scrollHeight + "px";
+    }
 
-    // When a bookmark file is chosen, the function 'getFile' is started.
-    iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
+//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
+    /*
+        let currentWidth = document.querySelector('iframe').contentWindow.document.body.scrollWidth;
+        let currentHeight = "";
+
+        if ( +currentWidth < 900 ) currentHeight = "396px"; // 396px мало. Если ширина минимальная, то в viewport не
+        // входит кнопка и часть текста
+        else if ( +currentWidth < 1200 ) currentHeight = "333px";
+        else currentHeight = "300px";
+    */
+    hashChange(routs);
 }
 
 function Route(name, html, defaultSite) {
@@ -85,6 +78,20 @@ function launch(someHtml, callback) {
     let url = 'routes/' + someHtml;
     iframe.setAttribute('src', url);
     iframe.onload = callback;
+}
+
+//The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
+// And also sets height of the element "iframe" dependent on the size of viewport, that contains the text.
+
+function setSize() {
+    // String below keeps the height of the element with the class name "container" equals 10 mm.
+    document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
+
+    let elementBody = iframe.contentWindow.document.body;
+    if (elementBody) document.querySelector('iframe').style.height = elementBody.scrollHeight + "px";
+
+    // When a bookmark file is chosen, the function 'getFile' is started.
+    iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
 }
 
 // Function 'addDate' adds a div element with the bookmark creation date after the inputElement.
@@ -152,28 +159,6 @@ function getFile(e) {
         let fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(fileForSave)
     }
-}
-
-function start() {
-
-        let elementBody = iframe.contentWindow.document.body;
-        if (elementBody) {
-            console.log("есть elementBody");
-            console.log("offsetHeight", elementBody.offsetHeight, "clientHeight", elementBody.clientHeight, "scrollHeight", elementBody.scrollHeight, "height", elementBody.height)
-            iframe.style.height = elementBody.scrollHeight + "px";
-        }
-
-//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
-/*
-    let currentWidth = document.querySelector('iframe').contentWindow.document.body.scrollWidth;
-    let currentHeight = "";
-
-    if ( +currentWidth < 900 ) currentHeight = "396px"; // 396px мало. Если ширина минимальная, то в viewport не
-    // входит кнопка и часть текста
-    else if ( +currentWidth < 1200 ) currentHeight = "333px";
-    else currentHeight = "300px";
-*/
-    hashChange(routs);
 }
 
 start();
