@@ -18,39 +18,24 @@ import './js/routes.js'
 import './js/app.js'
 */
 
-
-window.onload = function() {
-
-//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
-    let currentWidth = document.querySelector('#output').contentWindow.document.body.scrollWidth;
-    let currentHeight = "";
-
-    if ( +currentWidth < 900 ) currentHeight = "396px";
-      else if ( +currentWidth < 1200 ) currentHeight = "333px";
-    else currentHeight = "300px";
-
-    document.querySelector('#output').style.height = currentHeight;
-
-    setSize();
-}
+let iframe = document.querySelector("iframe");
 
 window.addEventListener("load", setSize);
 window.addEventListener("resize", setSize);
 
-//The function setSize keeps the size of the element with the class name "container", that contains the flag images.
-// And also sets height of the element with id "output" dependent on the size of viewport, that contains the text.
+
+//The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
+// And also sets height of the element "iframe" dependent on the size of viewport, that contains the text.
 
 function setSize() {
     // String below keeps the height of the element with the class name "container" equals 10 mm.
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
-    let elementBody = document.querySelector('#output').contentWindow.document.body;
-    if (elementBody) document.querySelector('#output').style.height = elementBody.scrollHeight + "px";
+    let elementBody = iframe.contentWindow.document.body;
+    if (elementBody) document.querySelector('iframe').style.height = elementBody.scrollHeight + "px";
 
-    // Commented string below used for testing application
-    //console.log("setSize", window.innerWidth/window.outerWidth)
-
-     hashChange(routs);
+    // When a bookmark file is chosen, the function 'getFile' is started.
+    iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
 }
 
 function Route(name, html, defaultSite) {
@@ -73,43 +58,34 @@ window.addEventListener("hashchange", function() {
 // from the "routes" folder with the name equal to the html property.
 
 function hashChange(arrayOfRoutes){
+    console.log("hashChange")
     let currentRoutes = arrayOfRoutes;
     if(window.location.hash.length > 0 ){
 
         for (let i=0; i <  currentRoutes.length; ++i) {
             if ( currentRoutes[i].name === window.location.hash.substr(1)) {
-                launch( currentRoutes[i].html, chooseFile)
+                launch( currentRoutes[i].html, setSize)
             }
         }
 
     } else { console.log("else")
         for (let i=0; i <  currentRoutes.length; i++) {
             if ( currentRoutes[i].default === true) {
-                launch( currentRoutes[i].html, chooseFile)
+                launch( currentRoutes[i].html, setSize)
             }
         }
     }
 }
 
 // The function Launch runs the html file in the browser with the address passed to this function as the first
-// parameter. As a second parameter, the function chooseFile is passed, which runs when the user chooses a bookmark
-// file.
+// parameter. As a second parameter, the function setSize is passed.
 
 function launch(someHtml, callback) {
 
     let url = 'routes/' + someHtml;
-    let output = document.getElementById("output");
-    output.setAttribute('src', url);
-
-    output.onload = callback;
+    iframe.setAttribute('src', url);
+    iframe.onload = callback;
 }
-
-
-// When a bookmark file is chosen, the function 'getFile' is started.
-function chooseFile() {
-    output.contentDocument.getElementById('chosen-file').onchange = getFile;
-}
-
 
 // Function 'addDate' adds a div element with the bookmark creation date after the inputElement.
 // Attribute 'ADD_DATE' has a Unix timestamp in seconds.
@@ -134,11 +110,11 @@ function addDate(inputElement) {
 // Function 'elementIteration' iterates through the elements and checks if there are nested elements and apply to each
 // element function 'addDate'
 function elementIteration(inputElement) {
-    let element = inputElement;
-    addDate(element);
+    //let element = inputElement;
+    addDate(inputElement);
 
-    if (element.hasChildNodes()) {
-        let childNodes = element.children;
+    if (inputElement.hasChildNodes()) {
+        let childNodes = inputElement.children;
         for (let i = 0; i < childNodes.length; i++) {
             elementIteration(childNodes[i]);
         }
@@ -160,8 +136,7 @@ function getFile(e) {
     let domTree;
     let inputFile = e.target.files[0];
     let reader = new FileReader();
-    //let fileContent;
-    //let outputFile;
+
     reader.readAsText(inputFile);
     reader.onload = function(e) {
         const fileContent = e.target.result;
@@ -178,3 +153,27 @@ function getFile(e) {
         FileSaver.saveAs(fileForSave)
     }
 }
+
+function start() {
+
+        let elementBody = iframe.contentWindow.document.body;
+        if (elementBody) {
+            console.log("есть elementBody");
+            console.log("offsetHeight", elementBody.offsetHeight, "clientHeight", elementBody.clientHeight, "scrollHeight", elementBody.scrollHeight, "height", elementBody.height)
+            iframe.style.height = elementBody.scrollHeight + "px";
+        }
+
+//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
+/*
+    let currentWidth = document.querySelector('iframe').contentWindow.document.body.scrollWidth;
+    let currentHeight = "";
+
+    if ( +currentWidth < 900 ) currentHeight = "396px"; // 396px мало. Если ширина минимальная, то в viewport не
+    // входит кнопка и часть текста
+    else if ( +currentWidth < 1200 ) currentHeight = "333px";
+    else currentHeight = "300px";
+*/
+    hashChange(routs);
+}
+
+start();
