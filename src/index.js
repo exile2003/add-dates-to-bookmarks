@@ -80,6 +80,7 @@ function launch(someHtml, callback) {
     iframe.onload = callback;
 }
 
+
 //The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
 // And also sets height of the element "iframe" dependent on the size of viewport, that contains the text.
 
