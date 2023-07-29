@@ -16,9 +16,9 @@ window.addEventListener("hashchange", function() {
 })
 
 function start() {
-    let elementBody = iframe.contentWindow.document.body;
-    if (elementBody) {
-        iframe.style.height = elementBody.scrollHeight + "px";
+    let bodyInIframe = iframe.contentWindow.document.body;
+    if (bodyInIframe) {
+        iframe.style.height = bodyInIframe.scrollHeight + "px";
     }
 
     router(routs);
