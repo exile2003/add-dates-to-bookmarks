@@ -15,6 +15,7 @@ window.addEventListener("hashchange", function() {
     router(routs);
 })
 
+//The function start runs first. It sets the size of the iframe element according to the contents and runs router.
 function start() {
     let bodyInIframe = iframe.contentWindow.document.body;
     if (bodyInIframe) {
@@ -76,8 +77,8 @@ function setSize() {
     // String below keeps the height of the element with the class name "container" equals 10 mm.
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
-    let elementBody = iframe.contentWindow.document.body;
-    if (elementBody) document.querySelector('iframe').style.height = elementBody.scrollHeight + "px";
+    let bodyInIframe = iframe.contentWindow.document.body;
+    if (bodyInIframe) document.querySelector('iframe').style.height = bodyInIframe.scrollHeight + "px";
 
     // When a bookmark file is chosen, the function 'getFile' is started.
     iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
