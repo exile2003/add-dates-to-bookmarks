@@ -1,12 +1,6 @@
 import './style.css';
 import FileSaver from 'file-saver';
 
-/*
-import './js/flags_size.js'
-import './js/routes.js'
-import './js/app.js'
-*/
-
 let iframe = document.querySelector("iframe");
 
 window.addEventListener("load", setSize);
