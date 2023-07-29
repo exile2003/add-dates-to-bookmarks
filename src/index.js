@@ -12,7 +12,7 @@ let iframe = document.querySelector("iframe");
 window.addEventListener("load", setSize);
 window.addEventListener("resize", setSize);
 window.addEventListener("hashchange", function() {
-    hashChange(routs);
+    router(routs);
 })
 
 function start() {
@@ -21,7 +21,7 @@ function start() {
         iframe.style.height = elementBody.scrollHeight + "px";
     }
 
-    hashChange(routs);
+    router(routs);
 }
 
 function Route(name, html, defaultSite) {
@@ -36,13 +36,13 @@ let routs = [
 ]
 
 
-//The function hashChange looks for an element in the passed array with a name equal to the URL hash of the browser
+//The function router looks for an element in the passed array with a name equal to the URL hash of the browser
 // window. And passes the html property of this element to the function "launch", which runs in the browser the file
 // from the "routes" folder with the name equal to the html property.
 
-function hashChange(arrayOfRoutes){
-    console.log("hashChange")
-    let currentRoutes = arrayOfRoutes;
+function router(arrayOfRoutes){
+
+    const currentRoutes = arrayOfRoutes;
     if(window.location.hash.length > 0 ){
 
         for (let i=0; i <  currentRoutes.length; ++i) {
