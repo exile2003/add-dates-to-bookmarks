@@ -10,7 +10,7 @@ window.addEventListener("hashchange", function() {
     router(routs);
 })
 
-//Handling a custom event.
+//Handling a custom event. This event happens when the page content has loaded.
 output.addEventListener("contentdisplayed", function() {
 //Creating a script element dynamically. Adding the chunk routes_bundle.js created by Webpack into it. Putting it to
 // the page and immediately deleting it after the styles take effect.
@@ -19,6 +19,8 @@ output.addEventListener("contentdisplayed", function() {
     scriptElement.type = "text/javascript";
     document.body.appendChild(scriptElement);
     scriptElement.remove();
+    // When a bookmark file is chosen, the function 'getFile' is started.
+    document.getElementById('chosen-file').onchange = getFile;
 });
 
 function Route(name, defaultSite) {
@@ -43,14 +45,14 @@ function router(arrayOfRoutes){
 
         for (let i=0; i <  currentRoutes.length; ++i) {
             if ( currentRoutes[i].name === window.location.hash.substr(1)) {
-                switchPageContent( currentRoutes[i].name, setSize)
+                switchPageContent( currentRoutes[i].name)
             }
         }
 
     } else {
         for (let i=0; i <  currentRoutes.length; i++) {
             if ( currentRoutes[i].default === true) {
-                switchPageContent( currentRoutes[i].name, setSize)
+                switchPageContent( currentRoutes[i].name)
             }
         }
     }
@@ -64,17 +66,15 @@ function setDivContent(divElement, content) {
 }
 
 // The function switchPageContent places the text content on the page depending on the value passed to this function
-// as the first parameter. As a second parameter, a callback is passed.
+// as the first parameter.
 
-function switchPageContent (selectedLanguage, callback) {
+function switchPageContent (selectedLanguage) {
 
     switch (selectedLanguage) {
         case 'en': setDivContent(output, en); break;
         case 'ru': setDivContent(output, ru); break;
         default: output.innerHTML = "<h2>Select language of content</h2>"
     }
-
-    callback()
 }
 
 //The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
@@ -86,8 +86,9 @@ function setSize() {
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
     // When a bookmark file is chosen, the function 'getFile' is started.
-    document.getElementById('chosen-file').onchange = getFile;
+    //document.getElementById('chosen-file').onchange = getFile;
 }
+
 
 // Function 'addDate' adds a div element with the bookmark creation date after the inputElement.
 // Attribute 'ADD_DATE' has a Unix timestamp in seconds.
