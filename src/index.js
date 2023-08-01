@@ -1,34 +1,22 @@
 import './style.css';
 import FileSaver from 'file-saver';
 
-/*
-import './js/flags_size.js'
-import './js/routes.js'
-import './js/app.js'
-*/
-
 let iframe = document.querySelector("iframe");
 
 window.addEventListener("load", setSize);
 window.addEventListener("resize", setSize);
+window.addEventListener("hashchange", function() {
+    router(routs);
+})
 
+//The function start runs first. It sets the size of the iframe element according to the contents and runs router.
 function start() {
-    let elementBody = iframe.contentWindow.document.body;
-    if (elementBody) {
-        iframe.style.height = elementBody.scrollHeight + "px";
+    let bodyInIframe = iframe.contentWindow.document.body;
+    if (bodyInIframe) {
+        iframe.style.height = bodyInIframe.scrollHeight + "px";
     }
 
-//This code is necessary because the iframe element can't take the height automatically in dependence on its content.
-    /*
-        let currentWidth = document.querySelector('iframe').contentWindow.document.body.scrollWidth;
-        let currentHeight = "";
-
-        if ( +currentWidth < 900 ) currentHeight = "396px"; // 396px мало. Если ширина минимальная, то в viewport не
-        // входит кнопка и часть текста
-        else if ( +currentWidth < 1200 ) currentHeight = "333px";
-        else currentHeight = "300px";
-    */
-    hashChange(routs);
+    router(routs);
 }
 
 function Route(name, html, defaultSite) {
@@ -42,17 +30,14 @@ let routs = [
     new Route("en", "en.html", false)
 ]
 
-window.addEventListener("hashchange", function() {
-    hashChange(routs);
-})
 
-//The function hashChange looks for an element in the passed array with a name equal to the URL hash of the browser
+//The function router looks for an element in the passed array with a name equal to the URL hash of the browser
 // window. And passes the html property of this element to the function "launch", which runs in the browser the file
 // from the "routes" folder with the name equal to the html property.
 
-function hashChange(arrayOfRoutes){
-    console.log("hashChange")
-    let currentRoutes = arrayOfRoutes;
+function router(arrayOfRoutes){
+
+    const currentRoutes = arrayOfRoutes;
     if(window.location.hash.length > 0 ){
 
         for (let i=0; i <  currentRoutes.length; ++i) {
@@ -74,8 +59,7 @@ function hashChange(arrayOfRoutes){
 // parameter. As a second parameter, the function setSize is passed.
 
 function launch(someHtml, callback) {
-
-    let url = 'routes/' + someHtml;
+    const url = 'routes/' + someHtml;
     iframe.setAttribute('src', url);
     iframe.onload = callback;
 }
@@ -88,8 +72,8 @@ function setSize() {
     // String below keeps the height of the element with the class name "container" equals 10 mm.
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
-    let elementBody = iframe.contentWindow.document.body;
-    if (elementBody) document.querySelector('iframe').style.height = elementBody.scrollHeight + "px";
+    let bodyInIframe = iframe.contentWindow.document.body;
+    if (bodyInIframe) document.querySelector('iframe').style.height = bodyInIframe.scrollHeight + "px";
 
     // When a bookmark file is chosen, the function 'getFile' is started.
     iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
@@ -99,26 +83,24 @@ function setSize() {
 // Attribute 'ADD_DATE' has a Unix timestamp in seconds.
 // Tag "H3" has the name of the folder.
 function addDate(inputElement) {
-    let element = inputElement;
-    let attributeValue, div, date;
 
-    if (element.hasAttribute('ADD_DATE') && element.tagName !== "H3" && element.textContent !== "") {
+    if (inputElement.hasAttribute('ADD_DATE') && inputElement.tagName !== "H3" && inputElement.textContent !== "") {
 
-        attributeValue = element.getAttribute('ADD_DATE');
-        date = convertUnixTime(attributeValue);
+        const attributeValue = inputElement.getAttribute('ADD_DATE');
+        const date = convertUnixTime(attributeValue);
 
-        div = window.document.createElement('div');
+        const div = window.document.createElement('div');
         div.textContent = "   " + date;
         div.style.display = "inline";
 
-        element.insertAdjacentElement('afterEnd', div);
+        inputElement.insertAdjacentElement('afterEnd', div);
     }
 }
 
 // Function 'elementIteration' iterates through the elements and checks if there are nested elements and apply to each
 // element function 'addDate'
 function elementIteration(inputElement) {
-    //let element = inputElement;
+
     addDate(inputElement);
 
     if (inputElement.hasChildNodes()) {
@@ -132,32 +114,32 @@ function elementIteration(inputElement) {
 // Function 'convertUnixTime' takes a Unix timestamp in seconds as parameter value and returns a date in format DAY MMM DD YYYY
 // HH:MM:SS
 function convertUnixTime(date) {
-    let dateInstance = new Date();
+    const dateInstance = new Date();
     dateInstance.setTime(date*1000);
-    let calendarDate = (dateInstance.toString()).slice(0,25);
+    const calendarDate = (dateInstance.toString()).slice(0,25);
     return calendarDate;
 }
 
 // Function 'getFile' parses the input bookmark file, processes it with the function 'elementIteration' and writes with
 // the 'saveAs' method from the 'FileSaver' package
 function getFile(e) {
-    let domTree;
-    let inputFile = e.target.files[0];
-    let reader = new FileReader();
+
+    const inputFile = e.target.files[0];
+    const reader = new FileReader();
 
     reader.readAsText(inputFile);
     reader.onload = function(e) {
         const fileContent = e.target.result;
 
         //Parsing the content of the input file and assign result to domTree variable
-        domTree = new DOMParser().parseFromString(fileContent, "text/html")
+        const domTree = new DOMParser().parseFromString(fileContent, "text/html")
 
         //Pass the content of tag body to function elementIteration for adding dates
         elementIteration(domTree.getElementsByTagName('body')[0]);
         const outputFile = (domTree.getElementsByTagName('body')[0]).outerHTML
 
         //Form the file and write to disk
-        let fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
+        const fileForSave = new File([outputFile], "bookmark-result.html", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(fileForSave)
     }
 }
