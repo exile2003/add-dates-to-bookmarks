@@ -14,3 +14,7 @@ upper right corner
 modify-bookmarks/dist/ - This is a bundle. You can run application with index.html.
 
 modify-bookmarks/bookmarks/ - This is a saved bookmark file. You can use it to check how the application works.
+
+The imperative-iframe branch uses the iframe element for content and the en.html and ru.html files that are loaded into it.
+
+The imperative-div branch uses a regular div element and the content is loaded into it as string variables stored in the en.js and ru.js files.
