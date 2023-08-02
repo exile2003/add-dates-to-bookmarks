@@ -1,4 +1,5 @@
-<head><script defer src="../routes_bundle.js"></script></head><div class="wrap-text">
+export const en = `
+<div class="wrap-text">
     <h2>Adding dates to bookmarks</h2>
     <br>
     <div class="text-instruction" value="en">&nbsp;&nbsp;&nbsp To add dates to the bookmark file on the browser, export
@@ -12,4 +13,4 @@
     <input type="file" class="filestyle" id="chosen-file" data-btnClass="btn btn-primary" data-input="false"
            data-text="Download file">
 </div>
-
+`

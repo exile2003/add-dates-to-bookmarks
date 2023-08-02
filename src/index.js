@@ -1,7 +1,8 @@
-import './style.css';
 import FileSaver from 'file-saver';
+import { en } from './routes/en.js'
+import { ru } from './routes/ru.js'
 
-let iframe = document.querySelector("iframe");
+let output = document.querySelector("#output");
 
 window.addEventListener("load", setSize);
 window.addEventListener("resize", setSize);
@@ -9,27 +10,28 @@ window.addEventListener("hashchange", function() {
     router(routs);
 })
 
-//The function start runs first. It sets the size of the iframe element according to the contents and runs router.
-function start() {
-    let bodyInIframe = iframe.contentWindow.document.body;
-    if (bodyInIframe) {
-        iframe.style.height = bodyInIframe.scrollHeight + "px";
-    }
+//Handling a custom event. This event happens when the page content has loaded.
+output.addEventListener("contentdisplayed", function() {
+//Creating a script element dynamically. Adding the chunk routes_bundle.js created by Webpack into it. Putting it to
+// the page and immediately deleting it after the styles take effect.
+    const scriptElement = document.createElement("script");
+    scriptElement.src = "./routes_bundle.js";
+    scriptElement.type = "text/javascript";
+    document.body.appendChild(scriptElement);
+    scriptElement.remove();
+    // When a bookmark file is chosen, the function 'getFile' is started.
+    document.getElementById('chosen-file').onchange = getFile;
+});
 
-    router(routs);
-}
-
-function Route(name, html, defaultSite) {
+function Route(name, defaultSite) {
     this.name = name;
-    this.html = html;
     this.default = defaultSite;
 }
 
 let routs = [
-    new Route("ru", "ru.html", true),
-    new Route("en", "en.html", false)
+    new Route("ru", true),
+    new Route("en", false)
 ]
-
 
 //The function router looks for an element in the passed array with a name equal to the URL hash of the browser
 // window. And passes the html property of this element to the function "launch", which runs in the browser the file
@@ -38,46 +40,56 @@ let routs = [
 function router(arrayOfRoutes){
 
     const currentRoutes = arrayOfRoutes;
+
     if(window.location.hash.length > 0 ){
 
         for (let i=0; i <  currentRoutes.length; ++i) {
             if ( currentRoutes[i].name === window.location.hash.substr(1)) {
-                launch( currentRoutes[i].html, setSize)
+                switchPageContent( currentRoutes[i].name)
             }
         }
 
-    } else { console.log("else")
+    } else {
         for (let i=0; i <  currentRoutes.length; i++) {
             if ( currentRoutes[i].default === true) {
-                launch( currentRoutes[i].html, setSize)
+                switchPageContent( currentRoutes[i].name)
             }
         }
     }
+
 }
 
-// The function Launch runs the html file in the browser with the address passed to this function as the first
-// parameter. As a second parameter, the function setSize is passed.
+function setDivContent(divElement, content) {
+    divElement.innerHTML = content;
+    const contentDisplayedEvent = new Event("contentdisplayed");
+    divElement.dispatchEvent(contentDisplayedEvent);
+}
 
-function launch(someHtml, callback) {
-    const url = 'routes/' + someHtml;
-    iframe.setAttribute('src', url);
-    iframe.onload = callback;
+// The function switchPageContent places the text content on the page depending on the value passed to this function
+// as the first parameter.
+
+function switchPageContent (selectedLanguage) {
+
+    switch (selectedLanguage) {
+        case 'en': setDivContent(output, en); break;
+        case 'ru': setDivContent(output, ru); break;
+        default: output.innerHTML = "<h2>Select language of content</h2>"
+    }
 }
 
 
 //The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
-// And also sets height of the element "iframe" dependent on the size of viewport, that contains the text.
+//
 
 function setSize() {
     // String below keeps the height of the element with the class name "container" equals 10 mm.
+
     document.getElementsByClassName("container")[0].style.height =  10*window.innerWidth/window.outerWidth + "mm";
 
-    let bodyInIframe = iframe.contentWindow.document.body;
-    if (bodyInIframe) document.querySelector('iframe').style.height = bodyInIframe.scrollHeight + "px";
-
     // When a bookmark file is chosen, the function 'getFile' is started.
-    iframe.contentDocument.getElementById('chosen-file').onchange = getFile;
+    //document.getElementById('chosen-file').onchange = getFile;
 }
+
 
 // Function 'addDate' adds a div element with the bookmark creation date after the inputElement.
 // Attribute 'ADD_DATE' has a Unix timestamp in seconds.
@@ -144,4 +156,4 @@ function getFile(e) {
     }
 }
 
-start();
+router(routs);

@@ -1,4 +1,5 @@
-<head><script defer src="../routes_bundle.js"></script></head><div class="wrap-text">
+export const ru = `
+<div class="wrap-text">
     <h2>Добавление дат в bookmarks</h2>
     <br>
     <div class="text-instruction">&nbsp;&nbsp;&nbsp; Для добавления дат в файл закладок на браузере, экспортируйте файл
@@ -14,4 +15,4 @@
     <input type="file" class="filestyle" id="chosen-file" data-btnClass="btn btn-primary" data-input="false"
            data-text="Загрузите файл">
 </div>
-
+`
