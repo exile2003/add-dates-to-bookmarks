@@ -1,8 +1,8 @@
 {
-  "name": "modify-bookmarks",
+  "name": "add-dates-to-bookmarks",
   "version": "1.0.0",
   "description": "",
-  "main": "bookmarks-dates-dev.js",
+  "main": "",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
