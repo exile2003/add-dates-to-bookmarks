@@ -77,6 +77,7 @@ function switchPageContent (selectedLanguage) {
     }
 }
 
+
 //The function setSize keeps the size of the element with the class name "container", that contains the flag images, equal to 10 mm.
 //
 
