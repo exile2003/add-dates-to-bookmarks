@@ -9,7 +9,7 @@ upper right corner
  numbers). Next open dist/index.html file, click "Download File" and select the saved bookmark file. The file 
  "bookmarks-result.html" with dates will appear in the Downloads folder on your computer. It may take to one minute.
  
- [Start app](https://exile2003.github.io/add-dates-to-bookmarks/dist)
+ [Start app](https://exile2003.github.io/add-dates-to-bookmarks)
  
 add-dates-to-bookmarks/dist/ - This is a bundle. You can run application with index.html.
 
