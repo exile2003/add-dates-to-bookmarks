@@ -123,12 +123,13 @@ function elementIteration(inputElement) {
     }
 }
 
-// Function 'convertUnixTime' takes a Unix timestamp in seconds as parameter value and returns a date in format DAY MMM DD YYYY
-// HH:MM:SS
+// Function 'convertUnixTime' takes a Unix timestamp in seconds as parameter value and returns a date in format DAY, DD MMM YYYY
+// HH:MM:SS GMT
 function convertUnixTime(date) {
     const dateInstance = new Date();
     dateInstance.setTime(date*1000);
-    const calendarDate = (dateInstance.toString()).slice(0,25);
+    //const calendarDate = (dateInstance.toString()).slice(0,25);
+    const calendarDate = dateInstance.toUTCString();
     return calendarDate;
 }
 
