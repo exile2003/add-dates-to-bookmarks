@@ -1,4 +1,4 @@
-export const en = `
+const en = `
 <div class="wrap-text">
     <h2>Adding dates to bookmarks</h2>
     <br>
@@ -13,4 +13,6 @@ export const en = `
     <input type="file" class="filestyle" id="chosen-file" data-btnClass="btn btn-primary" data-input="false"
            data-text="Download file">
 </div>
-`
+`;
+
+export default en;

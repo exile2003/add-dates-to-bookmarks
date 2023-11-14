@@ -1,4 +1,4 @@
-export const ru = `
+const ru = `
 <div class="wrap-text">
     <h2>Добавление дат в bookmarks</h2>
     <br>
@@ -15,4 +15,6 @@ export const ru = `
     <input type="file" class="filestyle" id="chosen-file" data-btnClass="btn btn-primary" data-input="false"
            data-text="Загрузите файл">
 </div>
-`
+`;
+
+export default ru;

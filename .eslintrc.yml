@@ -5,4 +5,12 @@ extends: airbnb-base
 parserOptions:
   ecmaVersion: latest
   sourceType: module
-rules: {}
+rules: {
+  linebreak-style: ["error", "windows"],
+  max-len: ["error", {
+    "code": 140,
+    "comments": 140
+  }],
+  no-plusplus: 0,
+  no-use-before-define: 0
+}
